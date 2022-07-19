@@ -7,7 +7,4 @@ export const getContactsItem = createSelector(
   contactsState => contactsState.items
 );
 
-export const getContsctasFilter = createSelector(
-  getContactsState,
-  contactsState => contactsState.filter
-);
+export const getContsctasFilter =()=> state => state.filter

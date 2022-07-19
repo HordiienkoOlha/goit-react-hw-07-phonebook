@@ -1,7 +1,7 @@
 import {Container } from 'react-bootstrap';
 import ContactForm from './ContactsForm/ContactForm';
 import ContactList from './ContactList/ContactList';
-// import Filter from './Filter/Filter';
+import Filter from './Filter/Filter';
 
 export const App = () => {
   return (
@@ -12,7 +12,7 @@ export const App = () => {
       </Container>
       <Container className="p-3">
       <h2 className="header">Contacts</h2>
-      {/* <Filter /> */}
+      <Filter />
       <ContactList />
       </Container>
     </>

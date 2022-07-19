@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createSlice } from '@reduxjs/toolkit';
 
 export const contactApi = createApi({
   reducerPath: 'contactApi',
@@ -7,14 +8,8 @@ export const contactApi = createApi({
   }),
   tagTypes: ['Contact'],
   endpoints: builder => ({
-
     fetchContacts: builder.query({
       query: () => '/contacts',
-      providesTags: ['Contact'],
-    }),
-
-    filterContact: builder.query({
-      query: contactsName => `/contacts/${contactsName}`,
       providesTags: ['Contact'],
     }),
     deleteContact: builder.mutation({
@@ -48,27 +43,20 @@ export const {
 
 // import { createSlice } from '@reduxjs/toolkit';
 
-// const initialState = {
-//   items: [],
-//   filter: '',
-// };
+const initialState = {
+  filter: '',
+};
 
-// export const contactSlice = createSlice({
-//   name: 'contacts',
-//   initialState,
-//   reducers: {
-//     addContact: (contacts, { payload }) => {
-//       contacts.items.push(payload);
-//     },
-//     deleteContact: (contacts, { payload }) => {
-//       contacts.items = contacts.items.filter(item => item.id !== payload);
-//     },
-//     addFilter: (contacts, { payload }) => {
-//       contacts.filter = payload;
-//     },
-//   },
-// });
+export const filterSlice = createSlice({
+  name: 'contacts',
+  initialState,
+  reducers: {
+    addFilter: (contacts, { payload }) => {
+      contacts.filter = payload;
+    },
+  },
+});
 
-// export const { addContact, deleteContact, addFilter } = contactSlice.actions;
+export const {  addFilter } = filterSlice.actions;
 
-// export default contactSlice.reducer;
+export default filterSlice.reducer;
