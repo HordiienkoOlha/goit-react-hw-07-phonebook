@@ -1,9 +1,11 @@
 // import PropTypes from 'prop-types';
 import { ListGroup, Button, Stack } from 'react-bootstrap';
+import {useDeleteContactMutation} from 'redux/contacts/contactSlice'
 
 
-const ContactItem = ({name, number }) => {
-  // const ContactItem = ({name, number, onDeleteContacts }) => {
+// const ContactItem = ({name, number }) => {
+  const ContactItem = ({ name, number, id}) => {
+    const [deleteContact] = useDeleteContactMutation();
   return (
     <ListGroup.Item>
       <Stack direction="horizontal" gap={2}>
@@ -14,7 +16,7 @@ const ContactItem = ({name, number }) => {
           variant="outline-info"
           type="button"
           className="ms-auto"
-          // onClick={onDeleteContacts}
+          onClick={()=> deleteContact(id)}
         >
           Delete
         </Button>

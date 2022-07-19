@@ -1,15 +1,13 @@
-// import { nanoid } from 'nanoid';
 import { Form, Button, Card } from 'react-bootstrap';
-// import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-// import { getContactsItem } from 'redux/contacts/contactsSelectors';
-// import { addContact } from 'redux/contacts/contactSlice';
+import { useCreateContactMutation } from 'redux/contacts/contactSlice';
+import Spinner from 'components/Spinner/Spinner';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  // const contacts = useSelector(getContactsItem);
-  // const dispatch = useDispatch();
+  const [createContact, {isLoading}] = useCreateContactMutation();
+
 
   const onChange = event => {
     const { name, value } = event.target;
@@ -29,18 +27,16 @@ export default function ContactForm() {
 
   const onHandleSubmit = event => {
     event.preventDefault();
-    // const newContact = {
-    //   // id: nanoid(),
-    //   name,
-    //   number,
-    // };
-    console.log(name, number)
+    const newContact = {
+      name,
+      number,
+    }
 
-    // if (contacts.some(contact => contact.name.includes(newContact.name))) {
-    //   window.alert('The contact added in the list');
-    // } else {
-    //   dispatch(addContact(newContact));
-    // }
+    if (name.includes(newContact.name)) {
+      window.alert('The contact added in the list');
+    } else {
+      createContact(newContact);
+    }
     reset();
   };
 
@@ -76,9 +72,14 @@ export default function ContactForm() {
               required
             />
           </Form.Group>
-          <Button size="lg" variant="outline-info" type="submit">
-            Add contact
-          </Button>
+
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <Button size="lg" variant="outline-info" type="submit">
+              Add contact
+            </Button>
+          )}
         </Form>
       </Card>
     </>
