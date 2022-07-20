@@ -1,13 +1,17 @@
 import { Form, Button, Card } from 'react-bootstrap';
 import { useState } from 'react';
-import { useCreateContactMutation } from 'redux/contacts/contactSlice';
+
+import {
+  useCreateContactMutation,
+  useFetchContactsQuery,
+} from 'redux/contacts/contactSlice';
 import Spinner from 'components/Spinner/Spinner';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [createContact, {isLoading}] = useCreateContactMutation();
-
+  const [createContact, { isLoading }] = useCreateContactMutation();
+  const { data: contacts } = useFetchContactsQuery();
 
   const onChange = event => {
     const { name, value } = event.target;
@@ -30,13 +34,11 @@ export default function ContactForm() {
     const newContact = {
       name,
       number,
-    }
+    };
 
-    if (name.includes(newContact.name)) {
-      window.alert('The contact added in the list');
-    } else {
-      createContact(newContact);
-    }
+    contacts.some(contact => contact.name === newContact.name)
+      ? window.alert('The contact added in the list')
+      : createContact(newContact);
     reset();
   };
 

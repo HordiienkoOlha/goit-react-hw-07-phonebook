@@ -1,10 +1,10 @@
-import { createSelector } from 'reselect';
+export const getFilter = state => state.filter;
 
-const getContactsState = state => state.contacts;
-
-export const getContactsItem = createSelector(
-  getContactsState,
-  contactsState => contactsState.items
-);
-
-export const getContsctasFilter =()=> state => state.filter
+export const getContsctsFilter = (filter, contacts) => {
+  const normalizeFilter = filter.toLowerCase();
+  return contacts?.filter(
+    ({ name, number }) =>
+      name.toLowerCase().includes(normalizeFilter) ||
+      number.includes(normalizeFilter)
+  );
+};

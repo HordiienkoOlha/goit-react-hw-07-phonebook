@@ -1,10 +1,11 @@
 import { Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { addFilter } from 'redux/contacts/contactSlice';
+
+import { changeFilter } from 'redux/contacts/actions';
 
 const Filter = () => {
   const dispatch = useDispatch();
-  console.log()
+  console.log();
   return (
     <>
       <Form>
@@ -14,7 +15,9 @@ const Filter = () => {
             type="text"
             name="filter"
             placeholder="Search..."
-            onChange={event=> dispatch(addFilter(event.target.value.trim()))}
+            onChange={event =>
+              dispatch(changeFilter(event.target.value.trim()))
+            }
           />
         </Form.Group>
       </Form>
